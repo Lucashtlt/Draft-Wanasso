@@ -1,4 +1,4 @@
-import { ApiHttpService } from '../config/constants'
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EventModel } from '../models/event';
 
@@ -8,16 +8,14 @@ import { EventModel } from '../models/event';
 })
 export class EventService {
 
-    constructor(private Api: ApiHttpService) {
+    constructor(private Api: HttpClient) {
     }
-    
-    getEvents() : Promise<Array<EventModel>> {
-        return this.Api.get('http://localhost:3000/api/events').then((reponse) => {
-            let tabEvents: Array<EventModel> = [];
-            for (let obj of reponse) {
-                tabEvents.push(new EventModel(obj._id, obj.title, obj.description, obj.startDate, obj.endDate, obj.image));
-            }
-            return tabEvents;
-        });
-    }
+
+    getEvents() {
+        return this.Api.get<any>('http://localhost:3000/api/events')
+       
+    };
+    postEvent(obj : EventModel ) {
+        return this.Api.post('http://localhost:3000/api/events', obj)
+    };
 }

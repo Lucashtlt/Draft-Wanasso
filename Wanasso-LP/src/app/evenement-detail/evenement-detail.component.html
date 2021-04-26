@@ -7,7 +7,7 @@
             <h1>{{ event?.title }}</h1>
             <p>{{ event?.startDate | date:'medium' }} - {{ event?.endDate | date:'medium' }}</p>
             <p>{{ event?.description }}</p>
-            <a class="btn btn-primary" href="#" role="button" onclick="deleteElement">Supprimer l'événement</a>
+            <a class="btn btn-primary" href="#" role="button" (click)="deleteElement()">Supprimer l'événement</a>
         </div>
     </div>
 </div>

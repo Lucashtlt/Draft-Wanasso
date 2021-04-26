@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { EvenementDetailComponent } from './evenement-detail/evenement-detail.component';
 import { MainComponent } from './main/main.component';
 import { EventService } from './services/event.service'
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { EventService } from './services/event.service'
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     EventService,

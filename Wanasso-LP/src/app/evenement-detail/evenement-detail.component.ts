@@ -14,20 +14,20 @@ export class EvenementDetailComponent implements OnInit {
 
   public event!: EventModel ;
   public eventList: Array<EventModel> = [] ;
-  public id!: number;
+  public id!: string;
 
   constructor(private eventService: EventService,  private route: ActivatedRoute, private API: ApiHttpService, private router : Router) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    this.eventService.getEvents().then((values) => {
+    this.eventService.getEvents().subscribe((values) => {
       this.eventList.push(...values)
       this.event = this.getEventById(this.eventList, this.id)!;
       console.log(this.event, this.id)
     });
   }
 
-  getEventById(eventList : Array<EventModel>, id : Number) {
+  getEventById(eventList : Array<EventModel>, id : string) {
     return eventList.find( x => x._id == id)
   }
   

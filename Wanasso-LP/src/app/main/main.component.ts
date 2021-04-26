@@ -10,6 +10,11 @@ import { EventService } from '../services/event.service';
 export class MainComponent implements OnInit {
 
   public eventList: Array<EventModel> = [];
+  public eventName: string = "";
+  public description: string = "";
+  public startDate: Date = new Date();
+  public endDate: Date = new Date();
+  public image: string = "";
 
   constructor(private eventService: EventService) {
 
@@ -17,9 +22,38 @@ export class MainComponent implements OnInit {
     
   ngOnInit(): void {
 
-    this.eventService.getEvents().then((values) => {
-      this.eventList.push(...values);
-    });
+    this.eventService.getEvents().subscribe(
+      (response) => {
+          let tabEvents: Array<EventModel> = [];
+          for (let obj of response) {
+              tabEvents.push(new EventModel(obj._id, obj.title, obj.description, obj.startDate, obj.endDate, obj.image));
+          }
+          this.eventList.push(...tabEvents);
+      });
+  }
+
+  onSubmit() {
+    var obj = new EventModel('',
+      this.eventName,
+      this.description,
+      this.startDate,
+      this.endDate,
+      this.image) 
+    console.log(obj);
+    this.eventService.postEvent(obj).subscribe((values : any)=> {
+      console.log(values)
+      var objet = new EventModel(
+        values._id,
+        values.title,
+        values.description,
+        values.startDate,
+        values.endDate,
+        values.image
+        );
+      this.eventList.push(objet);
+    })
+
+    
   }
 
 }
