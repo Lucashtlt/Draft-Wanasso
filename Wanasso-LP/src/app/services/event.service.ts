@@ -16,6 +16,17 @@ export class EventService {
        
     };
     postEvent(obj : EventModel ) {
-        return this.Api.post('http://localhost:3000/api/events', obj)
+        let newStartDate = obj.startDate.toISOString();
+        let newEndDate = obj.endDate.toISOString();
+        let newObject = {
+            title: obj.title,
+            description: obj.description,
+            startDate: newStartDate,
+            endDate: newEndDate,
+            image: obj.image
+        };
+       
+
+        return this.Api.post('http://localhost:3000/api/events', newObject)
     };
 }

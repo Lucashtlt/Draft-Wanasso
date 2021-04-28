@@ -3,6 +3,7 @@ var cors = require('cors');
 const app = express();
 const { v4: uuidv4 } = require('uuid');
 var bodyParser = require('body-parser');
+process.env.TZ = 'Europe/Paris' 
 
 app.use(cors());
 
@@ -32,10 +33,10 @@ app.get('/api/events', (req, res, next) => {
 });
 
 app.delete('/api/events/:id', (req, res, next) => {
-  // console.log(req.param._id)
+  console.log(req.params.id)
   let index = events.findIndex(event => event._id == req.params.id);
   events.splice(index, 1);
-  res.status(200).json({ message: 'Objet supprimé !' });
+  res.status(200).json( {id: req.params.id} );
 });
 
 app.post('/api/events', (req, res, next) => {

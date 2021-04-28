@@ -12,8 +12,8 @@ export class MainComponent implements OnInit {
   public eventList: Array<EventModel> = [];
   public eventName: string = "";
   public description: string = "";
-  public startDate: Date = new Date();
-  public endDate: Date = new Date();
+  public startDate: string= "";
+  public endDate: string = "";
   public image: string = "";
 
   constructor(private eventService: EventService) {
@@ -36,8 +36,8 @@ export class MainComponent implements OnInit {
     var obj = new EventModel('',
       this.eventName,
       this.description,
-      this.startDate,
-      this.endDate,
+      new Date(this.startDate),
+      new Date(this.endDate),
       this.image) 
     console.log(obj);
     this.eventService.postEvent(obj).subscribe((values : any)=> {
