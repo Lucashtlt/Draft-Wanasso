@@ -12,35 +12,37 @@ export class MainComponent implements OnInit {
   public eventList: Array<EventModel> = [];
   public eventName: string = "";
   public description: string = "";
-  public startDate: string= "";
+  public startDate: string = "";
   public endDate: string = "";
   public image: string = "";
 
   constructor(private eventService: EventService) {
 
   }
-    
-  ngOnInit(): void {
 
+  ngOnInit(): void {
+    //get all events
     this.eventService.getEvents().subscribe(
       (response) => {
-          let tabEvents: Array<EventModel> = [];
-          for (let obj of response) {
-              tabEvents.push(new EventModel(obj._id, obj.title, obj.description, obj.startDate, obj.endDate, obj.image));
-          }
-          this.eventList.push(...tabEvents);
+        let tabEvents: Array<EventModel> = [];
+        for (let obj of response) {
+          tabEvents.push(new EventModel(obj._id, obj.title, obj.description, obj.startDate, obj.endDate, obj.image));
+        }
+        this.eventList.push(...tabEvents);
       });
   }
 
+  //créé un nouvel event lors du submit du formulaire
   onSubmit() {
     var obj = new EventModel('',
       this.eventName,
       this.description,
       new Date(this.startDate),
       new Date(this.endDate),
-      this.image) 
+      this.image)
     console.log(obj);
-    this.eventService.postEvent(obj).subscribe((values : any)=> {
+
+    this.eventService.postEvent(obj).subscribe((values: any) => {
       console.log(values)
       var objet = new EventModel(
         values._id,
@@ -49,11 +51,11 @@ export class MainComponent implements OnInit {
         values.startDate,
         values.endDate,
         values.image
-        );
+      );
       this.eventList.push(objet);
     })
 
-    
+
   }
 
 }

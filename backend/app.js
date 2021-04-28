@@ -9,6 +9,7 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
+//Liste des events
 const events = [
   {
     _id: uuidv4(),
@@ -28,10 +29,12 @@ const events = [
   },
 ];
 
+//API GET
 app.get('/api/events', (req, res, next) => {
   res.status(200).json(events);
 });
 
+// API DELETE
 app.delete('/api/events/:id', (req, res, next) => {
   console.log(req.params.id)
   let index = events.findIndex(event => event._id == req.params.id);
@@ -39,6 +42,7 @@ app.delete('/api/events/:id', (req, res, next) => {
   res.status(200).json( {id: req.params.id} );
 });
 
+//API POST
 app.post('/api/events', (req, res, next) => {
   var obj = {
     _id: uuidv4(),

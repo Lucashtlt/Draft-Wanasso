@@ -11,11 +11,13 @@ export class EventService {
     constructor(private Api: HttpClient) {
     }
 
+    //API GET
     getEvents() {
-        return this.Api.get<any>('http://localhost:3000/api/events')
-       
+        return this.Api.get<any>('http://localhost:3000/api/events')  
     };
-    postEvent(obj : EventModel ) {
+    
+    //API POST
+    postEvent(obj: EventModel) {
         let newStartDate = obj.startDate.toISOString();
         let newEndDate = obj.endDate.toISOString();
         let newObject = {
@@ -25,8 +27,6 @@ export class EventService {
             endDate: newEndDate,
             image: obj.image
         };
-       
-
         return this.Api.post('http://localhost:3000/api/events', newObject)
     };
 }
