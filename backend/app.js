@@ -32,14 +32,13 @@ app.get('/api/events', (req, res, next) => {
 });
 
 app.delete('/api/events/:id', (req, res, next) => {
-  console.log(req.param._id)
+  // console.log(req.param._id)
   let index = events.findIndex(event => event._id == req.params.id);
   events.splice(index, 1);
   res.status(200).json({ message: 'Objet supprimé !' });
 });
 
 app.post('/api/events', (req, res, next) => {
-  console.log(req.body);
   var obj = {
     _id: uuidv4(),
     title: req.body.title,
@@ -48,10 +47,12 @@ app.post('/api/events', (req, res, next) => {
     endDate: req.body.endDate,
     image: req.body.image
   }
+  console.log(req.body);
   events.push(obj)
   res.status(200).json(
     obj
   );
+  console.log(obj);
 });
 
 module.exports = app;
