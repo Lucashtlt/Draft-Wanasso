@@ -4,11 +4,11 @@ import { EventModel } from '../models/event';
 import { EventService } from '../services/event.service';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  selector: 'app-admin',
+  templateUrl: './admin.component.html',
+  styleUrls: ['./admin.component.scss']
 })
-export class MainComponent implements OnInit {
+export class AdminComponent implements OnInit {
 
   public eventList: Array<EventModel> = [];
   public eventName: string = "";
@@ -60,5 +60,4 @@ export class MainComponent implements OnInit {
 
 
   }
-
 }

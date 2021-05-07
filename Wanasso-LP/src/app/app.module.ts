@@ -9,21 +9,30 @@ import { HttpClientModule } from '@angular/common/http';
 import { EvenementDetailComponent } from './evenement-detail/evenement-detail.component';
 import { MainComponent } from './main/main.component';
 import { EventService } from './services/event.service'
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { AdminComponent } from './admin/admin.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     EvenementComponent,
     EvenementDetailComponent,
-    MainComponent
+    MainComponent,
+    AdminComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     EventService,

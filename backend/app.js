@@ -1,63 +1,22 @@
 const express = require('express');
-var cors = require('cors');
 const app = express();
-const { v4: uuidv4 } = require('uuid');
+const eventRoutes = require('./routes/eventRoutes');
 var bodyParser = require('body-parser');
-process.env.TZ = 'Europe/Paris' 
-
+var cors = require('cors');
 app.use(cors());
-
 app.use(bodyParser.json());
+process.env.TZ = 'Europe/Paris' 
+const userRoutes = require('./routes/user');
 
-//Liste des events
-const events = [
-  {
-    _id: uuidv4(),
-    title: 'Mon premier Evenement',
-    description: 'Evenement de fou',
-    image: 'https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg',
-    startDate: new Date('September 22, 2018 15:00:00'),
-    endDate: new Date('September 22, 2018 16:00:00'),
-  },
-  {
-    _id: uuidv4(),
-    title: 'Marche XR',
-    description: 'Evenement de fou',
-    image: 'https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg',
-    startDate: new Date('September 22, 2018 15:00:00'),
-    endDate: new Date('September 22, 2018 16:00:00'),
-  },
-];
+const mongoose = require('mongoose');
+mongoose.connect('mongodb+srv://lucas:5&Lements@cluster0.ma2ua.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+  { useNewUrlParser: true,
+    useUnifiedTopology: true })
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-//API GET
-app.get('/api/events', (req, res, next) => {
-  res.status(200).json(events);
-});
 
-// API DELETE
-app.delete('/api/events/:id', (req, res, next) => {
-  console.log(req.params.id)
-  let index = events.findIndex(event => event._id == req.params.id);
-  events.splice(index, 1);
-  res.status(200).json( {id: req.params.id} );
-});
-
-//API POST
-app.post('/api/events', (req, res, next) => {
-  var obj = {
-    _id: uuidv4(),
-    title: req.body.title,
-    description: req.body.description,
-    startDate: req.body.startDate,
-    endDate: req.body.endDate,
-    image: req.body.image
-  }
-  console.log(req.body);
-  events.push(obj)
-  res.status(200).json(
-    obj
-  );
-  console.log(obj);
-});
+app.use('/api/events', eventRoutes);
+app.use('/api/auth', userRoutes);
 
 module.exports = app;

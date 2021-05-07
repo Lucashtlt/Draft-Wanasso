@@ -1,38 +1,8 @@
-<app-evenement *ngFor="let event of eventList"
-[event]="event"></app-evenement>
-<h1>Créer un nouvel événement</h1>
-    <form #eventForm="ngForm" (ngSubmit)="onSubmit()">
-        <div class="form-row">
-            <div class="col-md-12 mb-3">
-                <label for="validationServer01">Nom de l'événement</label>
-                <input type="text" class="form-control is-valid" id="validationServer01"
-                value="" [(ngModel)]="eventName" name="eventName" required>
-            </div>
-            <div class="form-group col-md-12">
-                <label for="description">Description de l'événement</label>
-                <textarea class="form-control" id="description" [(ngModel)]="description" name="description" rows="3"></textarea>
-            </div>
+<section id="gallery">
+    <div class="container">
+        <div class="row">
+            <app-evenement *ngFor="let event of eventList" [event]="event" class="col-lg-4 mb-4"></app-evenement>
         </div>
-        <div class="form-group row">
-            <label for="startDate" class="col-2 col-form-label">Date et heure de début</label>
-            <div class="col-10">
-                <input class="form-control" type="datetime-local" [(ngModel)]="startDate" name="startDate"
-                    id="startDate">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="endDate" class="col-2 col-form-label">Date et heure de fin</label>
-            <div class="col-10">
-                <input class="form-control" type="datetime-local" [(ngModel)]="endDate" name="endDate"
-                    id="endDate">
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-12 mb-3">
-                <label for="image">Image (sous forme d'URL)</label>
-                <input type="text" class="form-control is-valid" id="image" [(ngModel)]="image" name="image"
-                   value="" required>
-            </div>
-        </div>
-        <button class="btn btn-primary" type="submit">Submit form</button>
-    </form>
+    </div>
+</section>
+
