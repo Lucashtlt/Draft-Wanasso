@@ -14,8 +14,6 @@ import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +22,7 @@ import { SignupComponent } from './auth/signup/signup.component';
     MainComponent,
     AdminComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

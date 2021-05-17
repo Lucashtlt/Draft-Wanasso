@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { JwtHelperService } from '@auth0/angular-jwt';
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,8 @@ export class AuthService {
 
   constructor(private router: Router,
               private http: HttpClient,
-              public jwtHelper: JwtHelperService) {}
+              // public jwtHelper: JwtHelperService
+              ) {}
 
   createNewUser(email: string, password: string) {
     return new Promise((resolve, reject) => {
@@ -49,7 +50,7 @@ export class AuthService {
         'http://localhost:3000/api/auth/login',
         { email: email, password: password })
         .subscribe(
-          (authData: any) => {
+          (authData: { token: string, userId: string }) => {
             console.log(authData);
             this.token = authData.token;
             this.userId = authData.userId;
@@ -69,10 +70,4 @@ export class AuthService {
     this.token = '';
   }
 
-  public isAuthenticated(): boolean {
-    const token = localStorage.getItem('token');
-    // Check whether the token is expired and return
-    // true or false
-    return !this.jwtHelper.isTokenExpired(token!);
-}
 }

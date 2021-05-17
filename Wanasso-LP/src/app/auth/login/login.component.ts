@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { StateService } from '../../services/state.service';
+
 
 @Component({
   selector: 'app-login',
@@ -16,8 +16,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
-              private auth: AuthService,
-              private state: StateService) {
+              private auth: AuthService) {
                 this.loginForm = this.formBuilder.group({
                   email: [null, [Validators.required, Validators.email]],
                   password: [null, Validators.required]
@@ -25,7 +24,6 @@ export class LoginComponent implements OnInit {
               }
 
   ngOnInit() {
-    this.state.mode$.next('form');
   }
 
   onLogin() {

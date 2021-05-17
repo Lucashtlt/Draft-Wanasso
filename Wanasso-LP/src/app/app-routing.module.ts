@@ -5,21 +5,22 @@ import { EvenementDetailComponent } from './evenement-detail/evenement-detail.co
 import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import { AuthGuard } from './services/auth-guard.service';
+import { AuthGuardService } from './services/auth-guard.service';
 
 
 
 const routes: Routes = [
   {path: '', component: MainComponent},
   {path: 'evenements/:id', component: EvenementDetailComponent},
-  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
+  {path: 'admin', component: AdminComponent, canActivate: [AuthGuardService]},
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+ 
 })
 export class AppRoutingModule { 
 
