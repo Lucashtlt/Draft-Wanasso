@@ -50,16 +50,16 @@ export class AuthService {
         'http://localhost:3000/api/auth/login',
         { email: email, password: password })
         .subscribe(
-          (authData: { token: string, userId: string }) => {
-            console.log(authData);
-            this.token = authData.token;
-            this.userId = authData.userId;
-            this.isAuth$.next(true);
-            resolve('succès');
-          },
-          (error) => {
-            reject(error);
-          }
+          // (authData: { token: string, userId: string }) => {
+          //   console.log(authData);
+          //   this.token = authData.token;
+          //   this.userId = authData.userId;
+          //   this.isAuth$.next(true);
+          //   resolve('succès');
+          // },
+          // (error) => {
+          //   reject(error);
+          // }
         );
     });
   }
