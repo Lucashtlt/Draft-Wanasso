@@ -44,19 +44,19 @@ export class AdminComponent implements OnInit {
       this.image)
     console.log(obj);
 
-    this.eventService.postEvent(obj).subscribe()
-    //   (values: any) => {
-    //   console.log(values)
-    //   var objet = new EventModel(
-    //     values._id,
-    //     values.title,
-    //     values.description,
-    //     values.startDate,
-    //     values.endDate,
-    //     values.image
-    //   );
-    //   this.eventList.push(objet);
-    // })
+    this.eventService.postEvent(obj).subscribe(
+      (values: any) => {
+      console.log(values)
+      var objet = new EventModel(
+        values._id,
+        values.title,
+        values.description,
+        values.startDate,
+        values.endDate,
+        values.image
+      );
+      this.eventList.push(objet);
+    })
 
 
   }

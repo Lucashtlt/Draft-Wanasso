@@ -28,18 +28,20 @@ export class SignupComponent implements OnInit {
 
   }
 
-  onSignup() {
+  async onSignup() {
 
     const email = this.signupForm.get('email')!.value;
     const password = this.signupForm.get('password')!.value;
     this.auth.createNewUser(email, password).then(
       () => {
-          this.router.navigate(['']);
+        console.log('user created')
+          this.router.navigate(['admin']);
       }
     ).catch(
       (error) => {
 
         this.errorMessage = error.message;
+        console.log(error.message)
       }
     );
   }

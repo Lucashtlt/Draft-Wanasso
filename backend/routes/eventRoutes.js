@@ -6,7 +6,7 @@ const multer = require('../middleware/multer-config');
 
 // penser à remettre le auth
 router.get('', eventController.getAllEvents);
-router.delete('/:id', eventController.deleteEvent);
-router.post('', multer, eventController.createEvent );
+router.delete('/:id', auth, eventController.deleteEvent);
+router.post('', auth, multer, eventController.createEvent );
 
 module.exports = router;

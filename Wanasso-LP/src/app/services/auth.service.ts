@@ -10,15 +10,15 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
 
   isAuth$ = new BehaviorSubject<boolean>(false);
-  token: string = '';
-  userId: string = '';
+  token?: string = '';
+  userId?: string = '';
 
   constructor(private router: Router,
               private http: HttpClient,
               // public jwtHelper: JwtHelperService
               ) {}
 
-  createNewUser(email: string, password: string) {
+  async createNewUser(email: string, password: string) {
     return new Promise((resolve, reject) => {
       this.http.post(
         'http://localhost:3000/api/auth/signup',
@@ -27,6 +27,7 @@ export class AuthService {
           () => {
             this.login(email, password).then(
               () => {
+                console.log('req reussi')
                 resolve('succès');
               }
             ).catch(
@@ -44,22 +45,23 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    console.log(email, password)
+
     return new Promise((resolve, reject) => {
       this.http.post(
         'http://localhost:3000/api/auth/login',
         { email: email, password: password })
         .subscribe(
-          // (authData: { token: string, userId: string }) => {
-          //   console.log(authData);
-          //   this.token = authData.token;
-          //   this.userId = authData.userId;
-          //   this.isAuth$.next(true);
-          //   resolve('succès');
-          // },
-          // (error) => {
-          //   reject(error);
-          // }
+          (authData: { token?: string, userId?: string }) => {
+            this.token = authData.token;
+            this.userId = authData.userId;
+            console.log(this.token, this.userId)
+            this.isAuth$.next(true); 
+            console.log(this.isAuth$)
+            resolve('succès');
+          },
+          (error) => {
+            reject(error);
+          }
         );
     });
   }

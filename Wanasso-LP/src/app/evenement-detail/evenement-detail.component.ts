@@ -19,6 +19,7 @@ export class EvenementDetailComponent implements OnInit {
   constructor(private eventService: EventService,  private route: ActivatedRoute, private API: ApiHttpService, private router : Router) { }
 
   ngOnInit(): void {
+    //modifier pour des requêtes individuelles
     this.id = this.route.snapshot.params['id'];
     this.eventService.getEvents().subscribe((values) => {
       this.eventList.push(...values)
@@ -32,7 +33,7 @@ export class EvenementDetailComponent implements OnInit {
   }
   
   deleteElement() {
-    this.API.delete(`http://localhost:3000/api/events/${this.id}/`).then( (res) => {
+    this.eventService.deleteEvent(this.id).then( (res) => {
         console.log(res);
         return this.router.navigate(['']);
     }
