@@ -32,6 +32,8 @@ export class AdminComponent implements OnInit {
         }
         this.eventList.push(...tabEvents);
       });
+      console.log('admin', localStorage.getItem("id_token"),
+      localStorage.getItem("expires_at"))
   }
 
   //créé un nouvel event lors du submit du formulaire

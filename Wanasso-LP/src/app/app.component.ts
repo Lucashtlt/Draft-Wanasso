@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import {AuthService} from './services/auth.service'
 
 
 @Component({
@@ -11,8 +13,15 @@ export class AppComponent {
   
   public title = 'Wanasso-LP';
 
-  constructor(){
+  constructor(private auth: AuthService, private router: Router){
     
   };
+
+  logout() {
+    this.auth.logout();
+    console.log('logout', localStorage.getItem("id_token"),
+    localStorage.getItem("expires_at"))
+    return this.router.navigate([''])
+  }
   
 } 
