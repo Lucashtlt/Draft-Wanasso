@@ -17,34 +17,44 @@ export class EventService {
         const httpOptions = {
             headers: new HttpHeaders({
               'Content-Type':  'application/json',
-              Authorization: 'Bearer ' + this.Auth.token?? ''
+              Authorization: 'Bearer ' + localStorage.getItem('id_token')
             })
           }
-          console.log(this.Auth);
         return httpOptions;
     }
     //API GET
     getEvents() {
         return this.Api.get<any>('http://localhost:3000/api/events');
     };
+
+    getOneEvent(id : string) {
+        return this.Api.get<any>('http://localhost:3000/api/events/' + id + '/');
+    };
     
     //API POST
     postEvent(obj: EventModel) {
+        let newCreatingDate = obj.creatingDate.toISOString();
         let newStartDate = obj.startDate.toISOString();
         let newEndDate = obj.endDate.toISOString();
         let newObject = {
+            creatingDate: newCreatingDate,
             title: obj.title,
             description: obj.description,
             startDate: newStartDate,
             endDate: newEndDate,
-            image: obj.image
+            image: obj.image,
+            type: obj.type,
+            up: obj.up,
+            location: obj.location,
+            link: obj.link,
+            partner: obj.partnerId
         };
-        return this.Api.post('http://localhost:3000/api/events', newObject, this.getAuthOptions())
+        return this.Api.post('http://localhost:3000/api/events', {event : newObject}, this.getAuthOptions() )
     };
 
     //API DELETE
-    async deleteEvent(id : string)
+   deleteEvent(id : string)
     {
-        return this.Api.delete('http://localhost:3000/api/events/' + id + '/', this.getAuthOptions());
+        return this.Api.delete('http://localhost:3000/api/events/' + id + '/', this.getAuthOptions() );
     }
 }

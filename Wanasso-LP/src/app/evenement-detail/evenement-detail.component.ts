@@ -19,26 +19,18 @@ export class EvenementDetailComponent implements OnInit {
   constructor(private eventService: EventService,  private route: ActivatedRoute, private API: ApiHttpService, private router : Router) { }
 
   ngOnInit(): void {
-    //modifier pour des requêtes individuelles
     this.id = this.route.snapshot.params['id'];
-    this.eventService.getEvents().subscribe((values) => {
-      this.eventList.push(...values)
-      this.event = this.getEventById(this.eventList, this.id)!;
-      console.log(this.event, this.id)
+    this.eventService.getOneEvent(this.id).subscribe((res) => {
+      this.event = res
     });
   }
 
   getEventById(eventList : Array<EventModel>, id : string) {
     return eventList.find( x => x._id == id)
   }
-  
-  deleteElement() {
-    this.eventService.deleteEvent(this.id).then( (res) => {
-        console.log(res);
-        return this.router.navigate(['']);
-    }
-    )
-    
+
+  getLink() {
+    return this.event.link
   }
 
 }

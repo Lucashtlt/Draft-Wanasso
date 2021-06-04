@@ -10,14 +10,9 @@ import * as moment from "moment";
 })
 export class AuthService {
 
-  // isAuth$ = new BehaviorSubject<boolean>(false);
-  // token?: string = '';
-  // userId?: string = '';
-  // expiresAt?: Date = undefined;
-
   constructor(private router: Router,
     private http: HttpClient,
-    // public jwtHelper: JwtHelperService
+
   ) { }
 
   async createNewUser(email: string, password: string) {
@@ -65,23 +60,20 @@ export class AuthService {
   }
 
   private setSession(authData: { token?: string, userId?: string, expiresIn?: number }) {
-    console.log('moment', moment().toString())
-    console.log('expiresIn', authData.expiresIn)
-    const expiresAt = moment().add(authData.expiresIn, 'hour');
-    console.log('expiresAt', expiresAt)
 
+    const expiresAt = moment().add(authData.expiresIn, 'hour');
+    localStorage.setItem('user_id', authData.userId ?? '');
     localStorage.setItem('id_token', authData.token ?? '');
     localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));
   }
 
   logout() {
+    localStorage.removeItem("user_id");
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
   }
 
   public isLoggedIn() {
-    console.log('isloggedin',  localStorage.getItem("id_token"),
-    localStorage.getItem("expires_at"))
     return  moment().isBefore(this.getExpiration());
   }
 

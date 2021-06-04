@@ -4,9 +4,11 @@ const eventController = require('../controllers/eventController')
 const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
 
-// penser à remettre le auth
-router.get('', eventController.getAllEvents);
 router.delete('/:id', auth, eventController.deleteEvent);
-router.post('', auth, multer, eventController.createEvent );
+router.post('', eventController.createEvent );
+router.get('', eventController.getAllEvents);
+router.get('/:id', eventController.getOneEvent);
+
+
 
 module.exports = router;

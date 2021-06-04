@@ -8,6 +8,7 @@ app.use(bodyParser.json());
 const path = require('path');
 process.env.TZ = 'Europe/Paris' 
 const userRoutes = require('./routes/user');
+const partnerRoutes = require('./routes/partnerRoutes')
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://lucas:5&Lements@cluster0.ma2ua.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
@@ -19,5 +20,6 @@ mongoose.connect('mongodb+srv://lucas:5&Lements@cluster0.ma2ua.mongodb.net/myFir
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/events', eventRoutes);
 app.use('/api/auth', userRoutes);
+app.use('/api/partners', partnerRoutes);
 
 module.exports = app;

@@ -23,5 +23,9 @@ export class AppComponent {
     localStorage.getItem("expires_at"))
     return this.router.navigate([''])
   }
+
+  isLoggedIn() {
+    return this.auth.isLoggedIn();
+  }
   
 } 

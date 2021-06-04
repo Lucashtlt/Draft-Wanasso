@@ -6,6 +6,7 @@ import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { AdminDetailComponent } from './admin-detail/admin-detail.component';
 
 
 
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'evenements/:id', component: EvenementDetailComponent},
   {path: 'admin', component: AdminComponent, canActivate: [AuthGuardService]},
   {path: 'admin/signup', component: SignupComponent, canActivate: [AuthGuardService]},
+  {path: 'admin/:id', component: AdminDetailComponent, canActivate: [AuthGuardService]},
   {path: 'login', component: LoginComponent},
   
 ];

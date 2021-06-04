@@ -1,16 +1,13 @@
 <div class="container">
-
-        <div class="image-entete" >
+    <div class="row justify-content-start">
+        <div class="col-sm-4">
             <img [src]="event?.image" alt="greenpeace-logo-300x200" class="img-fluid">
         </div>
-
-
-    <div class="row">
         <div class="col-8">
             <h1>{{ event?.title }}</h1>
             <p>{{ event?.startDate | date:'medium' }} - {{ event?.endDate | date:'medium' }}</p>
             <p>{{ event?.description }}</p>
-            <a href="#" class="btn btn-outline-success btn-sm" role="button" [routerLink]="getLink()">S'inscrire à l'événement</a>
+            <a class="btn btn-primary" href="#" role="button" (click)="deleteElement()">Supprimer l'événement</a>
         </div>
     </div>
 </div>

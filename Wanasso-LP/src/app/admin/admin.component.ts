@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { EventModel } from '../models/event';
 import { EventService } from '../services/event.service';
 
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -16,7 +17,23 @@ export class AdminComponent implements OnInit {
   public startDate: string = "";
   public endDate: string = "";
   public image: string = "";
-
+  public source: string = "admin";
+  public eventType: string = "" ;
+  public up: boolean = false;
+  public location: string = "";
+  public partner: string = "";
+  public link: string = "";
+  public typeOptions = [
+    "Désobéissance civile",
+    "Réunion d'accueil",
+    "Marche pour le climat",
+    "Formation ANV"
+  ]
+  public partnerOptions = [
+    "XR",
+    "Greenpeace"
+  ]
+ 
   
   constructor(private eventService: EventService,  private router: Router) {
 
@@ -28,22 +45,26 @@ export class AdminComponent implements OnInit {
       (response) => {
         let tabEvents: Array<EventModel> = [];
         for (let obj of response) {
-          tabEvents.push(new EventModel(obj._id, obj.title, obj.description, obj.startDate, obj.endDate, obj.image));
+          tabEvents.push(new EventModel(obj._id, obj.creatingDate, obj.title, obj.description, obj.startDate, obj.endDate, obj.image, obj.type, obj.up, obj.location, obj.link, obj.partner ));
         }
         this.eventList.push(...tabEvents);
       });
-      console.log('admin', localStorage.getItem("id_token"),
-      localStorage.getItem("expires_at"))
   }
 
   //créé un nouvel event lors du submit du formulaire
   onSubmit() {
     var obj = new EventModel('',
+      new Date(),
       this.eventName,
       this.description,
       new Date(this.startDate),
       new Date(this.endDate),
-      this.image)
+      this.image,
+      this.eventType,
+      this.up,
+      this.location,
+      this.link,
+      this.partner)
     console.log(obj);
 
     this.eventService.postEvent(obj).subscribe(
@@ -51,15 +72,29 @@ export class AdminComponent implements OnInit {
       console.log(values)
       var objet = new EventModel(
         values._id,
+        values.creatingDate,
         values.title,
         values.description,
         values.startDate,
         values.endDate,
-        values.image
+        values.image,
+        values.type,
+        values.up,
+        values.location,
+        values.link,
+        values.partner
       );
       this.eventList.push(objet);
     })
 
 
+  }
+  onChangeType(event:any) {
+    const value = event.target.value;
+    this.eventType = value;
+  }
+  onChangePartner(event:any) {
+    const value = event.target.value;
+    this.partner = value;
   }
 }

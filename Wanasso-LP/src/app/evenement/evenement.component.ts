@@ -10,6 +10,7 @@ import { EventModel } from '../models/event';
 export class EvenementComponent implements OnInit {
   
   @Input() event!: EventModel;
+  @Input() source: string = "";
 
   
   constructor() { }
@@ -18,7 +19,16 @@ export class EvenementComponent implements OnInit {
   }
 
   getLink() {
-    return "evenements/" + this.event._id;
+    if(this.source == "main") {
+      return "evenements/" + this.event._id;
+    }
+    else if (this.source == "admin") {
+      return this.event._id;
+    }
+    else {
+     console.log("pas d'URL correspondant")
+     return "home"
+    }
   }
 
 
