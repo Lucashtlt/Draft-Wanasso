@@ -1,3 +1,4 @@
+import {PartnerModel} from './partner'
 export class EventModel {
     constructor(public _id: string,  
         public creatingDate: Date, 
@@ -10,7 +11,7 @@ export class EventModel {
         public up: boolean, 
         public location: string, 
         public link: string,
-        public partnerId: string,
+        public partners: Array<PartnerModel>,
          ) {
     }
 }

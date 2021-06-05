@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventModel } from '../models/event';
+import { PartnerModel } from '../models/partner';
 import { EventService } from '../services/event.service';
 
 
@@ -21,7 +22,7 @@ export class AdminComponent implements OnInit {
   public eventType: string = "" ;
   public up: boolean = false;
   public location: string = "";
-  public partner: string = "";
+  public partners!: Array<PartnerModel>;
   public link: string = "";
   public typeOptions = [
     "Désobéissance civile",
@@ -64,7 +65,7 @@ export class AdminComponent implements OnInit {
       this.up,
       this.location,
       this.link,
-      this.partner)
+      this.partners)
     console.log(obj);
 
     this.eventService.postEvent(obj).subscribe(
@@ -82,7 +83,7 @@ export class AdminComponent implements OnInit {
         values.up,
         values.location,
         values.link,
-        values.partner
+        values.partners
       );
       this.eventList.push(objet);
     })
@@ -95,6 +96,6 @@ export class AdminComponent implements OnInit {
   }
   onChangePartner(event:any) {
     const value = event.target.value;
-    this.partner = value;
+    this.partners = value;
   }
 }

@@ -15,6 +15,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AdminDetailComponent } from './admin-detail/admin-detail.component';
+import { AdminCreateEventComponent } from './admin-create-event/admin-create-event.component';
+import { AdminCreatePartnerComponent } from './admin-create-partner/admin-create-partner.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { AdminDetailComponent } from './admin-detail/admin-detail.component';
     LoginComponent,
     SignupComponent,
     AdminDetailComponent,
+    AdminCreateEventComponent,
+    AdminCreatePartnerComponent,
   ],
   imports: [
     BrowserModule,

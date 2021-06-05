@@ -47,7 +47,7 @@ export class EventService {
             up: obj.up,
             location: obj.location,
             link: obj.link,
-            partner: obj.partnerId
+            partners: obj.partners
         };
         return this.Api.post('http://localhost:3000/api/events', {event : newObject}, this.getAuthOptions() )
     };
