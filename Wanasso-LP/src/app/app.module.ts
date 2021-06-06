@@ -10,13 +10,14 @@ import { EvenementDetailComponent } from './evenement-detail/evenement-detail.co
 import { MainComponent } from './main/main.component';
 import { EventService } from './services/event.service'
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
-import { AdminComponent } from './admin/admin.component';
+import { AdminComponent } from './admin/admin-main/admin.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuardService } from './services/auth-guard.service';
-import { AdminDetailComponent } from './admin-detail/admin-detail.component';
-import { AdminCreateEventComponent } from './admin-create-event/admin-create-event.component';
-import { AdminCreatePartnerComponent } from './admin-create-partner/admin-create-partner.component';
+import { AdminDetailComponent } from './admin/admin-detail/admin-detail.component';
+import { AdminCreateEventComponent } from './admin/admin-create-event/admin-create-event.component';
+import { AdminCreatePartnerComponent } from './admin/admin-create-partner/admin-create-partner.component';
+import { PartnerService } from './services/partner.service';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AdminCreatePartnerComponent } from './admin-create-partner/admin-create
   ],
   providers: [
     EventService,
+    PartnerService,
     AuthGuardService
   ],
   bootstrap: [AppComponent]

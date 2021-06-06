@@ -1,6 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 const Event = require('../models/Event');
 const fs = require('fs');
+const Partner = require('../models/Partner');
 
 
 
@@ -11,16 +12,41 @@ exports.deleteEvent = (req, res, next) => {
 }
 
 exports.createEvent = (req, res, next) => {
-  console.log(req.body.event)
   const eventObject = req.body.event;
-  const event = new Event({
-    _id: uuidv4(),
-    ...eventObject,
-  });
-  event.save()
-    .then(() => res.status(201).json(event))
+  const partnerList = eventObject.partners
+  Event.create(new Event({
+    ...eventObject
+  }))
+    .then((event) => {
+      console.log(event.partners);
+      event.partners.forEach(partnerId => {
+  
+        Partner.findById(partnerId)
+        .then(
+          p => {console.log(p);
+            p.events.push(event._id);
+            Partner.findOneAndUpdate({_id : p._id}, {events : p.events}, {new: true} );        }
+          );
+      }); 
+
+      res.status(201).json(event);
+    })
     .catch(error => res.status(400).json({ error }));
 }
+
+
+
+// exports.createEvent = (req, res, next) => {
+//   console.log(req.body.event)
+//   const eventObject = req.body.event;
+//   const event = new Event({
+//     ...eventObject,
+//   });
+//   console.log("event", event)
+//   event.save()
+//     .then(() => res.status(201).json(event))
+//     .catch(error => res.status(400).json({ error }));
+// }
 
 exports.getAllEvents = (req, res, next) => {
   Event.find()

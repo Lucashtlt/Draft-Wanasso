@@ -23,7 +23,7 @@ export class EvenementComponent implements OnInit {
       return "evenements/" + this.event._id;
     }
     else if (this.source == "admin") {
-      return this.event._id;
+      return "events/" + this.event._id;
     }
     else {
      console.log("pas d'URL correspondant")

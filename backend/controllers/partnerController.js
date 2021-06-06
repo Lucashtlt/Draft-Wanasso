@@ -15,7 +15,6 @@ exports.createPartner = (req, res, next) => {
     console.log(req.body.partner)
   const partnerObject = req.body.partner;
   const partner = new Partner({
-    _id: uuidv4(),
     ...partnerObject,
   });
   partner.save()

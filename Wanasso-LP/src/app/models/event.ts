@@ -11,7 +11,7 @@ export class EventModel {
         public up: boolean, 
         public location: string, 
         public link: string,
-        public partners: Array<PartnerModel>,
+        public partners: Array<string> ,
          ) {
     }
 }

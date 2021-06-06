@@ -1,5 +1,5 @@
 import { EventModel } from "./event"
 export class PartnerModel {
-    constructor(public name: string, public logo: string,  public event: EventModel ) {
+    constructor(public _id: string, public name: string, public logo: string,  public events: Array<string> ) {
     }
 }

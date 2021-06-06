@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const eventSchema = mongoose.Schema ({
-    _id: {type: String, required: true},
     creatingDate: {type: Date, required: true},
     title: {type: String, required: true}, 
     description: {type: String, required: true},
@@ -12,7 +11,7 @@ const eventSchema = mongoose.Schema ({
     up: {type: Boolean, required: true},
     location: {type: String, required: true},
     link: {type: String, required: true},
-    partner: {type: mongoose.Schema.Types.ObjectId, ref: "Partner"}
+    partners: [{type: mongoose.Schema.Types.ObjectId, ref: "Partner"}]
 })
 
 module.exports = mongoose.model('Event', eventSchema);

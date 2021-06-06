@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>Créer un nouveau partenaire</h1>
+    <form #eventForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="form-group row">
+            <div class="col-md-12 mb-3">
+                <label for="name">Nom du partenaire</label>
+                <input type="text" class="form-control is-valid" id="validationServer01" value=""
+                    [(ngModel)]="name" name="name" required>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+                <label for="image">Image (sous forme d'URL)</label>
+                <input type="text" class="form-control is-valid" id="image" [(ngModel)]="image" name="image" value=""
+                    required>
+            </div>
+        </div>
+        
+        <button class="btn btn-primary" type="submit">Submit form</button>
+    </form>
+</div>
