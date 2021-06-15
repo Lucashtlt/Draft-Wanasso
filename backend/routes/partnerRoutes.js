@@ -5,7 +5,7 @@ const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
 
 router.delete('/:id', auth, partnerController.deletePartner);
-router.post('', partnerController.createPartner );
+router.post('', auth, partnerController.createPartner );
 router.get('', partnerController.getAllPartners);
 router.get('/:id', partnerController.getOnePartner);
 

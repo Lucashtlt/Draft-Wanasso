@@ -44,7 +44,6 @@
                         {{o}}
                     </option>
                 </select>
-                <p>Selected option: {{ eventType }}</p>
             </div>
         </div>
         <div class="form-row">
@@ -65,16 +64,6 @@
                     required>
             </div>
         </div>
-        <div class="form-row">
-            <div class="col-md-12 mb-3">
-                <label for="partner">Partenaire organisateur</label>
-                <select [(ngModel)]="partners" (change)="onChangePartner($event)">
-                    <option *ngFor="let o of partnerList" [value]="o._id">
-                        {{o.name}}
-                    </option>
-                </select>
-            </div>
-        </div>
         <div class="form-group row">
             <div class="col-md-12 mb-3">
                 <label for="link">Lien vers l'inscription à l'événement</label>
@@ -88,32 +77,19 @@
             type="file" 
             class="form-control"
             (change)="onFileChange($event)"> -->
-            <div class="row" *ngIf="!newPartner"> 
-                <div class="d-inline p-2">
-                    <button class="btn btn-primary " type="button" (click)="addPartner()">Ajouter un partenaire</button>
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Quels sont les partenaires organisateurs ?
+                </label>
+                <div *ngFor="let partner of partners" class="form-check">
+                    <input type="checkbox"  [(ngModel)]="partner.checked"
+                    [ngModelOptions]="{standalone: true}"> {{partner.name}}
                 </div>
             </div>
-            <div class="container" *ngIf="newPartner">
-                <h1>Créer un nouveau partenaire</h1>
-                    <div class="form-group row">
-                        <div class="col-md-12 mb-3">
-                            <label for="name">Nom du partenaire</label>
-                            <input type="text" class="form-control is-valid" id="validationServer01" value="" [(ngModel)]="name"
-                                name="name" required>
-                        </div>
-                    </div>
-        
-                    <div class="form-row">
-                        <div class="col-md-12 mb-3">
-                            <label for="logo">Image (sous forme d'URL)</label>
-                            <input type="text" class="form-control is-valid" id="logo" [(ngModel)]="logo" name="logo" value=""
-                                required>
-                        </div>
-                    </div>
-    
-            </div>
+        </div>
         <button class="btn btn-primary" type="submit">Submit form</button>
     </form>
 
-   
+
 </div>

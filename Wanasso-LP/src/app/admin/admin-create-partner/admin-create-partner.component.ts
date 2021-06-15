@@ -13,6 +13,8 @@ export class AdminCreatePartnerComponent implements OnInit {
   public partnerList: Array<PartnerModel> = [];
   public name: string = "";
   public image: string = "";
+  public partnerId: Array<string> = [] ;
+  public partner: string = "";
 
   constructor(private partnerService : PartnerService,  private router: Router) {
 
@@ -28,6 +30,7 @@ export class AdminCreatePartnerComponent implements OnInit {
           }
           this.partnerList.push(...tabPatners);
         });
+        
   }
 
   //créé un nouvel event lors du submit du formulaire
@@ -48,5 +51,18 @@ export class AdminCreatePartnerComponent implements OnInit {
       );
       this.partnerList.push(objet);
     })
+  }
+
+  onDeletePartners() {
+    console.log(this.partner)
+    this.partnerService.deletePartner(this.partner).subscribe( (values) => {
+      console.log(values)
+      this.router.navigate(['admin']);
+  })    
+
+  }
+  onChangeType(event:any) {
+    const value = event.target.value;
+    this.partner = value;
   }
 }

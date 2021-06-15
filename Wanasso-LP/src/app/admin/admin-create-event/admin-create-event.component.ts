@@ -22,7 +22,8 @@ export class AdminCreateEventComponent implements OnInit {
   public eventType: string = "" ;
   public up: boolean = false;
   public location: string = "";
-  public partners!: Array<string>;
+  public partners: Array<any> = [];
+  public partnersId: Array<string> = [] ;
   public link: string = "";
   public typeOptions = [
     "Désobéissance civile",
@@ -30,7 +31,6 @@ export class AdminCreateEventComponent implements OnInit {
     "Marche pour le climat",
     "Formation ANV"
   ];
-  public newPartner: boolean = false;
   public name: string = "";
   public logo: string = "";
   
@@ -52,16 +52,28 @@ export class AdminCreateEventComponent implements OnInit {
       });
      this.partnerService.getPartners().subscribe(
         (response) => {
-          let tabPatners: Array<PartnerModel> = [];
+          let tabPartners: Array<PartnerModel> = [];
           for (let obj of response) {
-            tabPatners.push(new PartnerModel(obj._id, obj.name, obj.logo, obj.events));
+            tabPartners.push(new PartnerModel(obj._id, obj.name, obj.logo, obj.events));
           }
-          this.partnerList.push(...tabPatners);
+          this.partnerList.push(...tabPartners);
+          for(let partner of this.partnerList){
+            let newPartner = {id: partner._id, name: partner.name}
+            this.partners.push(newPartner)
+          }
+            
         });
+        
   }
 
   //créé un nouvel event lors du submit du formulaire
   onSubmit() {
+    this.partnersId = [];
+    for(let partner of this.partners){
+      if(partner.checked ==true) {
+        this.partnersId.push(partner.id);
+      }
+    };
     var obj = new EventModel('',
       new Date(),
       this.eventName,
@@ -73,12 +85,12 @@ export class AdminCreateEventComponent implements OnInit {
       this.up,
       this.location,
       this.link,
-      this.partners)
-    console.log(obj);
+      this.partnersId)
+    console.log("requete", obj);
 
     this.eventService.postEvent(obj).subscribe(
       (values: any) => {
-      console.log(values)
+      console.log("reponse", values)
       var objet = new EventModel(
         values._id,
         values.creatingDate,
@@ -94,11 +106,12 @@ export class AdminCreateEventComponent implements OnInit {
         values.partners
       );
       this.eventList.push(objet);
-      this.onSubmitPartner(objet._id)
-      .then((partner) => {
-        console.log('event', objet, 'partner', partner)
-        return this.router.navigate(['../admin'])
-      })
+      
+      // this.onSubmitPartner(objet._id)
+      // .then((partner) => {
+      //   console.log('partner', partner)
+      //   return this.router.navigate(['../admin'])
+      // })
       
     })
     
@@ -113,10 +126,7 @@ export class AdminCreateEventComponent implements OnInit {
     const value = event.target.value;
     this.partners = value;
   }
-  addPartner() {
-    console.log("add partner")
-    return this.newPartner = true;
-  }
+
 
   async onSubmitPartner(id: string) {
     var obj = new PartnerModel('',
@@ -126,7 +136,6 @@ export class AdminCreateEventComponent implements OnInit {
     );
     this.partnerService.postPartner(obj).subscribe(
       (values: any) => {
-      console.log(values)
       var objet = new PartnerModel(
         values._id,
         values.name,

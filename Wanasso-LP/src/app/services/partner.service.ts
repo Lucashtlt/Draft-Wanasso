@@ -33,7 +33,12 @@ export class PartnerService {
     
     //API POST
     postPartner(obj: PartnerModel) {
-        return this.Api.post('http://localhost:3000/api/partners/', {partner : obj}, this.getAuthOptions() )
+        let newObject = {
+            name: obj.name,
+            logo: obj.logo,
+            events: obj.events
+        };
+        return this.Api.post('http://localhost:3000/api/partners/', {partner : newObject}, this.getAuthOptions() )
     };
 
     //API DELETE

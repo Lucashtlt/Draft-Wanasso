@@ -4,11 +4,11 @@
         <div class="form-group row">
             <div class="col-md-12 mb-3">
                 <label for="name">Nom du partenaire</label>
-                <input type="text" class="form-control is-valid" id="validationServer01" value=""
-                    [(ngModel)]="name" name="name" required>
+                <input type="text" class="form-control is-valid" id="validationServer01" value="" [(ngModel)]="name"
+                    name="name" required>
             </div>
         </div>
-        
+
         <div class="form-row">
             <div class="col-md-12 mb-3">
                 <label for="image">Image (sous forme d'URL)</label>
@@ -16,7 +16,27 @@
                     required>
             </div>
         </div>
-        
+
         <button class="btn btn-primary" type="submit">Submit form</button>
     </form>
+    <form #eventForm="ngForm" (ngSubmit)="onDeletePartners()">
+        <div class="form-group row">
+            <div class="col-md-12 mb-3">
+                <h1>Suppimer des partenaires</h1>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+                <label for="type">Sélectionner le partenaire a supprimer</label>
+                <select [(ngModel)]="partner" (change)="onChangeType($event)">
+                    <option *ngFor="let o of partnerList" [value]="o._id">
+                        {{o.name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit form</button>
+    </form>
+
+  
 </div>
