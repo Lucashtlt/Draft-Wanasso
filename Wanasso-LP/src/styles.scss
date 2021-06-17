@@ -1,1 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    font-family: "Metropolis-Bold";
+    src: local("Metropolis"), url(./assets/fonts/Metropolis/Metropolis-Bold.otf) format("truetype");
+}
+
+@font-face {
+    font-family: "Metropolis-ExtraBold";
+    src: local("Metropolis"), url(./assets/fonts/Metropolis/Metropolis-ExtraBold.otf) format("truetype");
+}
+
+@font-face {
+    font-family: "Metropolis-SemiBold";
+    src: local("Metropolis"), url(./assets/fonts/Metropolis/Metropolis-SemiBold.otf) format("truetype");
+}
+
+@font-face {
+    font-family: "Metropolis-Regular";
+    src: local("Metropolis"), url(./assets/fonts/Metropolis/Metropolis-Regular.otf) format("truetype");
+}
+
+h1 {
+    font-family: Metropolis-Extrabold;
+    color: #222222;
+}
+
+h2 {
+    font-family: Metropolis-Bold;
+    color: #1E5489
+}
+
+h3 {
+    font-family: Metropolis-SemiBold;
+    color: #1E5489
+}
+
+p{
+    font-family: Metropolis-Regular;
+    color: #222222;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

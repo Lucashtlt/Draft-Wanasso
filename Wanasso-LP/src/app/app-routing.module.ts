@@ -4,6 +4,7 @@ import { MainComponent } from './main/main.component'
 import { EvenementDetailComponent } from './evenement-detail/evenement-detail.component';
 import { AdminComponent } from './admin/admin-main/admin.component';
 import { LoginComponent } from './auth/login/login.component';
+import { FileComponent } from './file/file.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AdminDetailComponent } from './admin/admin-detail/admin-detail.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'evenements/:id', component: EvenementDetailComponent},
   {path: 'admin', component: AdminComponent, canActivate: [AuthGuardService]},
   {path: 'admin/signup', component: SignupComponent, canActivate: [AuthGuardService]},
+  {path: 'admin/files', component: FileComponent, canActivate: [AuthGuardService]},
   {path: 'admin/events/:id', component: AdminDetailComponent, canActivate: [AuthGuardService]},
   {path: 'admin/createEvent', component: AdminCreateEventComponent, canActivate: [AuthGuardService]},
   {path: 'admin/createPartner', component: AdminCreatePartnerComponent, canActivate: [AuthGuardService]},

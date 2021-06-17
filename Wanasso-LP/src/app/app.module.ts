@@ -18,6 +18,12 @@ import { AdminDetailComponent } from './admin/admin-detail/admin-detail.componen
 import { AdminCreateEventComponent } from './admin/admin-create-event/admin-create-event.component';
 import { AdminCreatePartnerComponent } from './admin/admin-create-partner/admin-create-partner.component';
 import { PartnerService } from './services/partner.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+// import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import { FileComponent } from './file/file.component';
+registerLocaleData(localeFr, 'fr');
 
 @NgModule({
   declarations: [
@@ -31,19 +37,22 @@ import { PartnerService } from './services/partner.service';
     AdminDetailComponent,
     AdminCreateEventComponent,
     AdminCreatePartnerComponent,
+    FileComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule
   ],
   providers: [
     EventService,
     PartnerService,
-    AuthGuardService
+    AuthGuardService,
+    // { provide: LOCALE_ID, useValue: "fr-FR" }
   ],
   bootstrap: [AppComponent]
 })

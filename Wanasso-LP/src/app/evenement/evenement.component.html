@@ -2,8 +2,8 @@
     <img [src]="event.image" alt="" class="card-img-top">
     <div class="card-body">
         <h2 class="card-title">{{ event.title }}</h2>
-        <h6 class="card-title">{{ event.startDate | date:'medium' }} - {{ event.endDate | date:'medium' }}</h6>
-        <p class="card-text">{{ event.description }}</p>
+        <h6 class="card-title">{{ event.startDate | date:'short':'+0200':'fr' }} - {{ event.endDate | date:'short':'+0200':'fr' }}</h6>
+        <p class="card-text text-truncate">{{ event.description }}</p>
         <a href="#" class="btn btn-outline-success btn-sm" role="button" [routerLink]="getLink()">Détail de
             l'événement</a>
     </div>

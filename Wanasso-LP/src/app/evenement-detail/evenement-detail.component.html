@@ -1,16 +1,25 @@
 <div class="container">
-
-        <div class="image-entete" >
-            <img [src]="event?.image" alt="greenpeace-logo-300x200" class="img-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="image-entete">
+                <img [src]="event?.image" alt="greenpeace-logo-300x200" class="img-fluid">
+            </div>
         </div>
+    </div>
 
 
     <div class="row">
         <div class="col-8">
-            <h1>{{ event?.title }}</h1>
-            <p>{{ event?.startDate | date:'medium' }} - {{ event?.endDate | date:'medium' }}</p>
-            <p>{{ event?.description }}</p>
-            <a href="#" class="btn btn-outline-success btn-sm" role="button" [routerLink]="getLink()">S'inscrire à l'événement</a>
+            <h1>{{ event?.title }} par <span *ngFor="let partner of partners">{{partner.name}}</span></h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <h3 style=" font-style: italic;">{{ event?.startDate | date:'short':'+0200':'fr' }} - {{ event?.endDate | date:'short':'+0200':'fr' }}</h3>
+            <p style="white-space: pre-line">{{ event?.description }}</p>
+            <a class="btn btn-outline-success btn-sm" role="button" [href]="event?.link">S'inscrire à
+                l'événement</a>
         </div>
     </div>
 </div>
