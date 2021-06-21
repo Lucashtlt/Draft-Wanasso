@@ -4,7 +4,7 @@ import { MainComponent } from './main/main.component'
 import { EvenementDetailComponent } from './evenement-detail/evenement-detail.component';
 import { AdminComponent } from './admin/admin-main/admin.component';
 import { LoginComponent } from './auth/login/login.component';
-import { FileComponent } from './file/file.component';
+import { FileComponent } from './admin/admin-file/file.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AdminDetailComponent } from './admin/admin-detail/admin-detail.component';

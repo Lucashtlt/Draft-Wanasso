@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FileService } from '../services/file.service';
+import { FileService } from '../../services/file.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
-import { FileModel } from '../models/file';
-import { mimeType } from '../mime-type.validator';
+import { AuthService } from '../../services/auth.service';
+import { FileModel } from '../../models/file';
+import { mimeType } from '../../mime-type.validator';
 
 @Component({
   selector: 'app-file',
@@ -44,7 +44,7 @@ export class FileComponent implements OnInit {
       () => {
         this.fileForm.reset();
         this.loading = false;
-        this.router.navigate(['/']);
+        this.router.navigate(['/admin']);
       },
       (error) => {
         this.loading = false;

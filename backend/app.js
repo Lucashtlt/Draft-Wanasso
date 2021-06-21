@@ -4,11 +4,16 @@ const eventRoutes = require('./routes/eventRoutes');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '150mb'}));
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+limit: '150mb',
+extended: true
+})); 
 const path = require('path');
 process.env.TZ = 'Europe/Paris' 
 const userRoutes = require('./routes/user');
 const partnerRoutes = require('./routes/partnerRoutes')
+const fileRoutes = require('./routes/fileRoutes')
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://lucas:5&Lements@cluster0.ma2ua.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
@@ -17,9 +22,10 @@ mongoose.connect('mongodb+srv://lucas:5&Lements@cluster0.ma2ua.mongodb.net/myFir
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-app.use('/images', express.static(path.join(__dirname, 'images')));
+
+app.use('/images', express.static(path.join(__dirname.split(' ').join('%20'), '/images')));
 app.use('/api/events', eventRoutes);
 app.use('/api/auth', userRoutes);
 app.use('/api/partners', partnerRoutes);
-
+app.use('/api/files', fileRoutes)
 module.exports = app;

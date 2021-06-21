@@ -22,7 +22,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 // import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
-import { FileComponent } from './file/file.component';
+import { FileComponent } from './admin/admin-file/file.component';
 registerLocaleData(localeFr, 'fr');
 
 @NgModule({

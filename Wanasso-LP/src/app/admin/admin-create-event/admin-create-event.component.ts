@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FileModel } from 'src/app/models/file';
+import { FileService } from 'src/app/services/file.service';
 import { EventModel } from '../../models/event';
 import { PartnerModel } from '../../models/partner';
 import { EventService } from '../../services/event.service';
@@ -14,16 +16,17 @@ import { PartnerService } from '../../services/partner.service';
 export class AdminCreateEventComponent implements OnInit {
   public eventList: Array<EventModel> = [];
   public partnerList: Array<PartnerModel> = [];
+  public fileList: Array<FileModel> = [];
   public eventName: string = "";
   public description: string = "";
   public startDate: string = "";
   public endDate: string = "";
-  public image: string = "";
   public eventType: string = "" ;
   public up: boolean = false;
   public location: string = "";
   public partners: Array<any> = [];
   public partnersId: Array<string> = [] ;
+  public imageId: string = '';
   public link: string = "";
   public typeOptions = [
     "Désobéissance civile",
@@ -33,10 +36,11 @@ export class AdminCreateEventComponent implements OnInit {
   ];
   public name: string = "";
   public logo: string = "";
+  public files: Array<any> = [];
   
  
   
-  constructor(private eventService: EventService, private partnerService : PartnerService,  private router: Router) {
+  constructor(private eventService: EventService, private partnerService : PartnerService, private fileService : FileService,  private router: Router) {
 
   }
 
@@ -63,6 +67,19 @@ export class AdminCreateEventComponent implements OnInit {
           }
             
         });
+        this.fileService.getFiles().subscribe(
+          (response) => {
+            let tabFiles: Array<FileModel> = [];
+            for (let obj of response) {
+              tabFiles.push(new FileModel(obj._id, obj.creatingDate, obj.title, obj.description, obj.fileUrl));
+            }
+            this.fileList.push(...tabFiles);
+            for(let file of this.fileList){
+              let newFile = {id: file._id, title: file.title}
+              this.files.push(newFile)
+            }
+              
+          });
         
   }
 
@@ -74,13 +91,14 @@ export class AdminCreateEventComponent implements OnInit {
         this.partnersId.push(partner.id);
       }
     };
+    console.log(this.imageId);
     var obj = new EventModel('',
       new Date(),
       this.eventName,
       this.description,
       new Date(this.startDate),
       new Date(this.endDate),
-      this.image,
+      this.imageId,
       this.eventType,
       this.up,
       this.location,
@@ -106,6 +124,8 @@ export class AdminCreateEventComponent implements OnInit {
         values.partners
       );
       this.eventList.push(objet);
+
+      this.router.navigate(['/admin/events/' + objet._id])
       
       // this.onSubmitPartner(objet._id)
       // .then((partner) => {
@@ -122,28 +142,12 @@ export class AdminCreateEventComponent implements OnInit {
     const value = event.target.value;
     this.eventType = value;
   }
+  onChangeImage(event:any) {
+    const value = event.target.value;
+    this.imageId = value;
+  }
   onChangePartner(event:any) {
     const value = event.target.value;
     this.partners = value;
-  }
-
-
-  async onSubmitPartner(id: string) {
-    var obj = new PartnerModel('',
-      this.name,
-      this.image,
-      [id]
-    );
-    this.partnerService.postPartner(obj).subscribe(
-      (values: any) => {
-      var objet = new PartnerModel(
-        values._id,
-        values.name,
-        values.logo,
-        values.events
-      );
-      this.partnerList.push(objet);
-      return objet;
-    })
   }
 }

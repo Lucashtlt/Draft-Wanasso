@@ -13,11 +13,22 @@ export class FileService {
     constructor(private Api: HttpClient, protected Auth: AuthService) {
     }
 
-    getAuthOptions(){
+    getAuthJsonOptions(){
         
         const httpOptions = {
             headers: new HttpHeaders({
               'Content-Type':  'application/json',
+              Authorization: 'Bearer ' + localStorage.getItem('id_token')
+            })
+          }
+        return httpOptions;
+    }
+    
+    getAuthFormDataOptions(){
+        
+        const httpOptions = {
+            headers: new HttpHeaders({
+              Accept:  '*/*',
               Authorization: 'Bearer ' + localStorage.getItem('id_token')
             })
           }
@@ -56,7 +67,8 @@ export class FileService {
             const thingData = new FormData();
             thingData.append('file', JSON.stringify(newObject));
             thingData.append('image', image, obj.title);
-            this.Api.post('http://localhost:3000/api/files', thingData, this.getAuthOptions()).subscribe(
+            console.log('file', JSON.stringify(newObject));
+            this.Api.post('http://localhost:3000/api/files', thingData, this.getAuthFormDataOptions()).subscribe(
                 (response) => {
                     console.log(response)
                     resolve(response);
@@ -72,6 +84,6 @@ export class FileService {
     //API DELETE
    deleteFile(id : string)
     {
-        return this.Api.delete('http://localhost:3000/api/files/' + id + '/', this.getAuthOptions() );
+        return this.Api.delete('http://localhost:3000/api/files/' + id + '/', this.getAuthJsonOptions() );
     }
 }

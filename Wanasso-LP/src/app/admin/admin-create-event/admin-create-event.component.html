@@ -31,9 +31,12 @@
         </div>
         <div class="form-row">
             <div class="col-md-12 mb-3">
-                <label for="image">Image (sous forme d'URL)</label>
-                <input type="text" class="form-control is-valid" id="image" [(ngModel)]="image" name="image" value=""
-                    required>
+                <label for="type">Image de l'événement</label>
+                <select class="selectpicker" data-live-search="true" [(ngModel)]="imageId" (change)="onChangeImage($event)">
+                    <option *ngFor="let f of files" [value]="f.id" >
+                        {{f.title}}
+                    </option>
+                </select>
             </div>
         </div>
         <div class="form-row">
