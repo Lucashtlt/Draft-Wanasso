@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { EventModel } from '../models/event';
+import { FileModel } from '../models/file';
+import { FileService } from '../services/file.service';
 
 
 @Component({
@@ -11,11 +14,18 @@ export class EvenementComponent implements OnInit {
   
   @Input() event!: EventModel;
   @Input() source: string = "";
-
+  public file!: FileModel;
   
-  constructor() { }
+  constructor(private fileService : FileService) { }
 
   ngOnInit(): void {
+
+    this.fileService.getOneFile(this.event.image[0]).subscribe((res2) => {
+      console.log(this.file);
+      this.file = res2;
+      this.file.fileUrl = environment.baseUrl + this.file.fileUrl;
+      console.log(this.file);
+    });
   }
 
   getLink() {

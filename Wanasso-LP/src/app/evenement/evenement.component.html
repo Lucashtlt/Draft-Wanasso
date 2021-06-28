@@ -1,5 +1,5 @@
 <div class="card">
-    <img [src]="event.image" alt="" class="card-img-top">
+    <img [src]="file.fileUrl" [alt]="file.description" class="card-img-top">
     <div class="card-body">
         <h2 class="card-title">{{ event.title }}</h2>
         <h6 class="card-title">{{ event.startDate | date:'short':'+0200':'fr' }} - {{ event.endDate | date:'short':'+0200':'fr' }}</h6>

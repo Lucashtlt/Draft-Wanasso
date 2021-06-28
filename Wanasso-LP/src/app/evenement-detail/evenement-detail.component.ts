@@ -5,6 +5,9 @@ import { EventModel } from '../models/event';
 import { ApiHttpService } from '../config/constants'
 import { Router } from '@angular/router';
 import { PartnerService } from '../services/partner.service';
+import { FileService } from '../services/file.service';
+import { environment } from 'src/environments/environment';
+import { FileModel } from '../models/file';
 
 @Component({
   selector: 'app-evenement-detail',
@@ -17,8 +20,9 @@ export class EvenementDetailComponent implements OnInit {
   public eventList: Array<EventModel> = [] ;
   public id!: string;
   public partners: Array<any> = [];
+  public file!: FileModel;
 
-  constructor(private eventService: EventService, private partnerService: PartnerService,  private route: ActivatedRoute, private API: ApiHttpService, private router : Router) { }
+  constructor(private fileService: FileService, private eventService: EventService, private partnerService: PartnerService,  private route: ActivatedRoute, private API: ApiHttpService, private router : Router) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -30,9 +34,12 @@ export class EvenementDetailComponent implements OnInit {
         }
         )
       }
-      console.log(this.event)
-      console.log(this.partners)
+      this.fileService.getOneFile(this.event.image[0]).subscribe((res2) => {
+        this.file = res2;
+        this.file.fileUrl = environment.baseUrl + this.file.fileUrl;
+      });
     });
+    
    
     
   }

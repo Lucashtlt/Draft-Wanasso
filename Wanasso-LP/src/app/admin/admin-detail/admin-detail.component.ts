@@ -32,7 +32,8 @@ export class AdminDetailComponent implements OnInit {
       this.fileService.getOneFile(this.event.image[0]).subscribe((res2) => {
         console.log(this.file);
         this.file = res2;
-        this.file.fileUrl = environment.baseUrl + "/" + this.file.fileUrl;
+        this.file.fileUrl = environment.baseUrl + this.file.fileUrl;
+        console.log(this.file);
       });
     });
   }

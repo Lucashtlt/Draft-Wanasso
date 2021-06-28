@@ -33,7 +33,13 @@ mongoose.connect(mongoUrl,
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 
-app.use('/images', express.static(path.join(__dirname.split(' ').join('%20'), '/images')));
+app.post('/images', express.static(path.join(__dirname.split(' ').join('%20'), '/images')));
+app.get('/images/:filename', (req, res) => {
+  const { filename } = req.params;
+  const dirname = path.resolve();
+  const fullfilepath = path.join(dirname, 'images/' + filename);
+  return res.sendFile(fullfilepath);
+});
 app.use('/api/events', eventRoutes);
 app.use('/api/auth', userRoutes);
 app.use('/api/partners', partnerRoutes);
