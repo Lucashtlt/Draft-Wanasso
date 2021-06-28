@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import * as moment from "moment";
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -18,7 +19,7 @@ export class AuthService {
   async createNewUser(email: string, password: string) {
     return new Promise((resolve, reject) => {
       this.http.post(
-        'http://localhost:3000/api/auth/signup',
+        environment.baseUrl + '/api/auth/signup',
         { email: email, password: password })
         .subscribe(
           () => {
@@ -45,7 +46,7 @@ export class AuthService {
 
     return new Promise((resolve, reject) => {
       this.http.post(
-        'http://localhost:3000/api/auth/login',
+        environment.baseUrl + '/api/auth/login',
         { email: email, password: password })
         .subscribe(
           (authData: { token?: string, userId?: string, expiresIn?: number }) => {

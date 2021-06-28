@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { PartnerModel } from '../models/partner';
 import { HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: "root"
@@ -24,11 +25,11 @@ export class PartnerService {
     }
     //API GET
     getPartners() {
-        return this.Api.get<any>('http://localhost:3000/api/partners');
+        return this.Api.get<any>(environment.baseUrl + '/api/partners');
     };
 
     getOnePartner(id : string) {
-        return this.Api.get<any>('http://localhost:3000/api/partners/' + id + '/');
+        return this.Api.get<any>(environment.baseUrl + '/api/partners/' + id + '/');
     };
     
     //API POST
@@ -38,12 +39,12 @@ export class PartnerService {
             logo: obj.logo,
             events: obj.events
         };
-        return this.Api.post('http://localhost:3000/api/partners/', {partner : newObject}, this.getAuthOptions() )
+        return this.Api.post(environment.baseUrl + '/api/partners', {partner : newObject}, this.getAuthOptions() )
     };
 
     //API DELETE
    deletePartner(id : string)
     {
-        return this.Api.delete('http://localhost:3000/api/partners/' + id + '/', this.getAuthOptions() );
+        return this.Api.delete(environment.baseUrl + '/api/partners/' + id + '/', this.getAuthOptions() );
     }
 }

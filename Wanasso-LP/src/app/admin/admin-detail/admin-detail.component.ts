@@ -6,6 +6,7 @@ import { ApiHttpService } from '../../config/constants'
 import { Router } from '@angular/router';
 import { FileModel } from 'src/app/models/file';
 import { FileService } from 'src/app/services/file.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class AdminDetailComponent implements OnInit {
       this.fileService.getOneFile(this.event.image[0]).subscribe((res2) => {
         console.log(this.file);
         this.file = res2;
-        this.file.fileUrl = "http://localhost:3000/" + this.file.fileUrl;
+        this.file.fileUrl = environment.baseUrl + "/" + this.file.fileUrl;
       });
     });
   }
@@ -39,7 +40,7 @@ export class AdminDetailComponent implements OnInit {
   deleteElement() {
     this.eventService.deleteEvent(this.id).subscribe((values) => {
       console.log(values)
-      this.router.navigate(['/admin']);
+      this.router.navigate(['/']);
     })
   }
 

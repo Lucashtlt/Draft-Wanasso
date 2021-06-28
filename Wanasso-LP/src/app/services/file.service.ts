@@ -4,6 +4,7 @@ import { FileModel } from '../models/file';
 import { HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { stringify } from '@angular/compiler/src/util';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: "root"
@@ -36,24 +37,14 @@ export class FileService {
     }
     //API GET
     getFiles() {
-        return this.Api.get<any>('http://localhost:3000/api/files');
+        return this.Api.get<any>(environment.baseUrl + '/api/files');
     };
 
     getOneFile(id : string) {
-        return this.Api.get<any>('http://localhost:3000/api/files/' + id + '/');
+        return this.Api.get<any>(environment.baseUrl + '/api/files/' + id + '/');
     };
     
-    //API POST
-    // postFile(obj: FileModel) {
-    //     let newCreatingDate = obj.creatingDate.toISOString();
-    //     let newObject = {
-    //         creatingDate: newCreatingDate,
-    //         title: obj.title,
-    //         description: obj.description,
-    //         fileUrl: ''
-    //     };
-    //     return this.Api.post('http://localhost:3000/api/files', {file : newObject}, this.getAuthOptions() )
-    // };
+   
 
     postFileWithUpload(obj: FileModel,image: File ) {
         return new Promise((resolve, reject) => {
@@ -68,7 +59,7 @@ export class FileService {
             thingData.append('file', JSON.stringify(newObject));
             thingData.append('image', image, obj.title);
             console.log('file', JSON.stringify(newObject));
-            this.Api.post('http://localhost:3000/api/files', thingData, this.getAuthFormDataOptions()).subscribe(
+            this.Api.post(environment.baseUrl + '/api/files', thingData, this.getAuthFormDataOptions()).subscribe(
                 (response) => {
                     console.log(response)
                     resolve(response);
@@ -84,6 +75,6 @@ export class FileService {
     //API DELETE
    deleteFile(id : string)
     {
-        return this.Api.delete('http://localhost:3000/api/files/' + id + '/', this.getAuthJsonOptions() );
+        return this.Api.delete(environment.baseUrl + '/api/files/' + id + '/', this.getAuthJsonOptions() );
     }
 }

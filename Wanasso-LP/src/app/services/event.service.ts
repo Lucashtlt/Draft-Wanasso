@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { EventModel } from '../models/event';
 import { HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: "root"
@@ -24,11 +25,11 @@ export class EventService {
     }
     //API GET
     getEvents() {
-        return this.Api.get<any>('http://localhost:3000/api/events');
+        return this.Api.get<any>(environment.baseUrl + '/api/events');
     };
 
     getOneEvent(id : string) {
-        return this.Api.get<any>('http://localhost:3000/api/events/' + id + '/');
+        return this.Api.get<any>(environment.baseUrl + '/api/events/' + id + '/');
     };
     
     //API POST
@@ -49,12 +50,12 @@ export class EventService {
             link: obj.link,
             partners: obj.partners
         };
-        return this.Api.post('http://localhost:3000/api/events', {event : newObject}, this.getAuthOptions() )
+        return this.Api.post(environment.baseUrl + '/api/events', {event : newObject}, this.getAuthOptions() )
     };
 
     //API DELETE
    deleteEvent(id : string)
     {
-        return this.Api.delete('http://localhost:3000/api/events/' + id + '/', this.getAuthOptions() );
+        return this.Api.delete(environment.baseUrl + '/api/events/' + id + '/', this.getAuthOptions() );
     }
 }
