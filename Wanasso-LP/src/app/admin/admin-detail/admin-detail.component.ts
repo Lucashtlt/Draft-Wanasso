@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { FileModel } from 'src/app/models/file';
 import { FileService } from 'src/app/services/file.service';
 import { environment } from 'src/environments/environment';
+import { PartnerService } from 'src/app/services/partner.service';
 
 
 @Component({
@@ -20,28 +21,29 @@ export class AdminDetailComponent implements OnInit {
   public file!: FileModel;
   public eventList: Array<EventModel> = [];
   public id!: string;
+  public partners: Array<any> = [];
 
-  constructor(private eventService: EventService, private fileService: FileService, private route: ActivatedRoute, private API: ApiHttpService, private router: Router) { }
+  constructor(private eventService: EventService,private partnerService : PartnerService, private fileService: FileService, private route: ActivatedRoute, private API: ApiHttpService, private router: Router) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     this.eventService.getOneEvent(this.id).subscribe((res) => {
-      console.log('id', this.id, 'res', res)
-      this.event = res;
-
+      this.event = res
+      for(let partner of this.event.partners){
+        this.partnerService.getOnePartner(partner).subscribe((newPartner) => {
+          this.partners.push(newPartner)
+        }
+        )
+      }
       this.fileService.getOneFile(this.event.image[0]).subscribe((res2) => {
-        console.log(this.file);
         this.file = res2;
         this.file.fileUrl = environment.baseUrl + this.file.fileUrl;
-        console.log(this.file);
       });
     });
   }
-
   deleteElement() {
-    this.eventService.deleteEvent(this.id).subscribe((values) => {
-      console.log(values)
-      this.router.navigate(['/']);
+    this.eventService.deleteEvent(this.id).subscribe(() => {
+      // this.router.navigate(['/'], { relativeTo: this.route });
     })
   }
 

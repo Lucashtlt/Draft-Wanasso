@@ -14,6 +14,7 @@ exports.deleteEvent = (req, res, next) => {
       //On gère les eventsId dans les partners lié à cet event
       for (let partnerId of partnersId) {
         Partner.findOne({ _id: partnerId }).then((obj) => {
+          console.log('obj', obj)
           let index = obj.events.findIndex(_id => _id == eventId)
           obj.events.splice(index,1)
           Partner.findOneAndUpdate({ _id: obj._id }, obj, { new: true })

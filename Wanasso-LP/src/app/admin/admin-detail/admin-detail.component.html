@@ -1,13 +1,26 @@
 <div class="container">
-    <div class="row justify-content-start">
-        <div class="col-sm-4">
-            <img [src]="file?.fileUrl" [alt]="file?.description" class="img-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="image-entete">
+                <img [src]="file?.fileUrl" [alt]="file?.description" class="img-fluid">
+            </div>
         </div>
+    </div>
+
+
+    <div class="row">
         <div class="col-8">
-            <h1>{{ event?.title }}</h1>
-            <p>{{ event?.startDate | date:'medium' }} - {{ event?.endDate | date:'medium' }}</p>
-            <p>{{ event?.description }}</p>
+            <h1>{{ event?.title }} par <span *ngFor="let partner of partners">{{partner.name}}</span></h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <h3 style=" font-style: italic;">{{ event?.startDate | date:'short':'+0200':'fr' }} - {{ event?.endDate | date:'short':'+0200':'fr' }}</h3>
+            <p style="white-space: pre-line; ">{{ event?.description }}</p>
             <a class="btn btn-primary" href="#" role="button" (click)="deleteElement()">Supprimer l'événement</a>
         </div>
     </div>
 </div>
+            
+   
